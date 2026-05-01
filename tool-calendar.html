@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype | Calendar Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="calendar-tool-page">
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+    <main class="shell calendar-tool-shell">
+      <nav class="card topnav reveal" aria-label="Prototype navigation">
+        <a href="./mission.html" class="nav-link">Mission</a>
+        <a href="./identity.html" class="nav-link">Identity</a>
+        <a href="./billing.html" class="nav-link">Billing</a>
+        <a href="./inbox.html" class="nav-link">Inbox</a>
+        <a href="./tools.html" class="nav-link nav-link-active">Tools</a>
+      </nav>
+
+      <header class="hero card reveal">
+        <p class="eyebrow">Enterprise Tool</p>
+        <h1>Calendar</h1>
+        <p class="lead">Events save to server storage (prototype mock). Download a JSON copy if needed.</p>
+        <p id="sessionStatus" class="status">No active account session.</p>
+      </header>
+
+      <section class="card reveal">
+        <h2>Access control</h2>
+        <p id="toolsGateStatus" class="status muted">Checking access...</p>
+      </section>
+
+      <section id="toolsLocked" class="card reveal">
+        <h2>Upgrade required</h2>
+        <p class="muted">Calendar tools are restricted to Gold and Enterprise plans.</p>
+        <a href="./billing.html" class="btn btn-link">Go To Billing</a>
+      </section>
+
+      <section id="toolsWorkspace" class="card reveal hidden tools-card">
+        <div class="tools-row tool-back-row">
+          <a href="./tools.html" class="btn btn-secondary btn-link">Back To Tools</a>
+        </div>
+
+        <div class="calendar-toolbar">
+          <div class="calendar-nav">
+            <button id="calendarPrevBtn" type="button" class="btn btn-secondary">Prev</button>
+            <button id="calendarTodayBtn" type="button" class="btn btn-secondary">Today</button>
+            <button id="calendarNextBtn" type="button" class="btn btn-secondary">Next</button>
+          </div>
+          <h2 id="calendarMonthLabel" class="calendar-month-label">Month Year</h2>
+          <button id="downloadCalendarBtn" type="button" class="btn btn-secondary">Download JSON</button>
+        </div>
+
+        <div class="calendar-tools-row">
+          <label class="calendar-tool-control" for="calendarViewMode">
+            <span>View</span>
+            <select id="calendarViewMode">
+              <option value="month" selected>Month</option>
+              <option value="week">Week</option>
+              <option value="day">Day</option>
+            </select>
+          </label>
+          <label class="calendar-tool-control" for="calendarSearchInput">
+            <span>Search</span>
+            <input id="calendarSearchInput" type="text" placeholder="Search events..." />
+          </label>
+          <label class="calendar-tool-control" for="calendarCategoryFilter">
+            <span>Category</span>
+            <select id="calendarCategoryFilter">
+              <option value="all" selected>All</option>
+              <option value="meeting">Meeting</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="deadline">Deadline</option>
+              <option value="travel">Travel</option>
+              <option value="general">General</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="calendar-layout">
+          <section class="calendar-main card">
+            <div id="calendarWeekdays" class="calendar-weekdays">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+            <div id="calendarGrid" class="calendar-grid" aria-label="Month calendar grid"></div>
+          </section>
+
+          <aside class="calendar-side card">
+            <h3>Selected Day</h3>
+            <p id="calendarSelectedDate" class="muted">No date selected</p>
+            <ul id="calendarAgenda" class="event-list"></ul>
+          </aside>
+        </div>
+
+        <form id="calendarForm" class="stack card">
+          <h3>Add Event</h3>
+          <label for="calendarWhen">Date & time</label>
+          <input id="calendarWhen" type="datetime-local" required />
+          <label for="calendarEvent">Event</label>
+          <input id="calendarEvent" type="text" placeholder="Legal review call" required />
+          <label for="calendarCategory">Category</label>
+          <select id="calendarCategory">
+            <option value="meeting" selected>Meeting</option>
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="deadline">Deadline</option>
+            <option value="travel">Travel</option>
+            <option value="general">General</option>
+          </select>
+          <label for="calendarReminderMinutes">Reminder</label>
+          <select id="calendarReminderMinutes">
+            <option value="0" selected>None</option>
+            <option value="5">5 minutes before</option>
+            <option value="10">10 minutes before</option>
+            <option value="15">15 minutes before</option>
+            <option value="30">30 minutes before</option>
+            <option value="60">1 hour before</option>
+            <option value="1440">1 day before</option>
+          </select>
+          <button class="btn" type="submit">Add Event</button>
+        </form>
+
+        <div class="tools-row">
+          <p class="muted">Click any day to inspect scheduled events.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+
+

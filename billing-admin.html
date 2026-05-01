@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype | Billing Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+    <main class="shell">
+      <nav class="card topnav reveal" aria-label="Prototype navigation">
+        <a href="./mission.html" class="nav-link">Mission</a>
+        <a href="./identity.html" class="nav-link">Identity</a>
+        <a href="./billing.html" class="nav-link">Billing</a>
+        <a href="./billing-admin.html" class="nav-link nav-link-active">Billing Admin</a>
+        <a href="./inbox.html" class="nav-link">Inbox</a>
+        <a href="./tools.html" class="nav-link">Tools</a>
+      </nav>
+
+      <header class="hero card reveal">
+        <h1>Billing Admin</h1>
+        <p class="lead">Prototype owner tools for lifetime gift entitlement management.</p>
+        <p id="sessionStatus" class="status">No active account session.</p>
+      </header>
+
+      <section class="card reveal">
+        <h2>Owner-Signed Session</h2>
+        <p class="muted">Sign with the owner account recovery phrase. First signer becomes owner if none exists.</p>
+        <form id="ownerSignForm" class="stack">
+          <label for="ownerSignPhrase">Recovery phrase</label>
+          <input id="ownerSignPhrase" type="text" placeholder="Enter owner recovery phrase" />
+          <button class="btn" type="submit">Sign Owner Session</button>
+        </form>
+        <p id="ownerAuthStatus" class="status muted">Owner session not signed.</p>
+      </section>
+
+      <section class="card reveal">
+        <h2>Lifetime Gift Entitlements</h2>
+        <form id="giftGrantForm" class="stack">
+          <label for="giftGrantAccountId">Grant lifetime to account ID</label>
+          <input id="giftGrantAccountId" type="text" placeholder="npa_xxxxxxxxxxxxx" />
+          <label for="giftGrantReason">Reason (optional)</label>
+          <input id="giftGrantReason" type="text" placeholder="Founder gift" />
+          <button class="btn" type="submit">Grant Lifetime</button>
+        </form>
+
+        <div class="tools-row billing-admin-row-gap">
+          <input id="giftSearchQuery" type="text" placeholder="Search by account ID" />
+          <button id="giftSearchBtn" class="btn btn-secondary" type="button">Search</button>
+          <button id="giftRefreshBtn" class="btn btn-secondary" type="button">Refresh</button>
+        </div>
+
+        <div class="metrics-table-wrap billing-admin-row-gap">
+          <table class="metrics-table" id="giftAdminTable">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Status</th>
+                <th>Granted By</th>
+                <th>Reason</th>
+                <th>Updated</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6" class="muted">No lifetime records yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="giftAdminStatus" class="status muted"></p>
+      </section>
+
+      <section class="card reveal">
+        <h2>Admin Role Management</h2>
+        <p class="muted">Promote or demote owner/admin/support/user roles with built-in owner guardrails.</p>
+
+        <div class="tools-row billing-admin-row-gap">
+          <input id="adminRoleSearchQuery" type="text" placeholder="Search account ID" />
+          <button id="adminRoleSearchBtn" class="btn btn-secondary" type="button">Search</button>
+          <button id="adminRoleRefreshBtn" class="btn btn-secondary" type="button">Refresh</button>
+        </div>
+
+        <div class="metrics-table-wrap billing-admin-row-gap">
+          <table class="metrics-table" id="adminRoleTable">
+            <thead>
+              <tr>
+                <th>Account</th>
+                <th>Role</th>
+                <th>Plan</th>
+                <th>Updated</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5" class="muted">No accounts available.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="adminRoleStatus" class="status muted"></p>
+      </section>
+
+      <section class="card reveal">
+        <h2>Admin Audit Log (Placeholder)</h2>
+        <p class="muted">Tracks role changes, owner-sign events, lifetime grants/revokes, and admin friendship auto-sync actions.</p>
+        <div class="metrics-table-wrap billing-admin-row-gap">
+          <table class="metrics-table" id="adminAuditTable">
+            <thead>
+              <tr>
+                <th>When</th>
+                <th>Actor</th>
+                <th>Event</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" class="muted">No audit events yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

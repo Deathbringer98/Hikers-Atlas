@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype | Calculator Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+    <main class="shell">
+      <nav class="card topnav reveal" aria-label="Prototype navigation">
+        <a href="./mission.html" class="nav-link">Mission</a>
+        <a href="./identity.html" class="nav-link">Identity</a>
+        <a href="./billing.html" class="nav-link">Billing</a>
+        <a href="./inbox.html" class="nav-link">Inbox</a>
+        <a href="./tools.html" class="nav-link nav-link-active">Tools</a>
+      </nav>
+
+      <header class="hero card reveal">
+        <p class="eyebrow">Enterprise Tool</p>
+        <h1>Calculator</h1>
+        <p class="lead">Run quick calculations with keypad support and auto-saved history.</p>
+        <p id="sessionStatus" class="status">No active account session.</p>
+      </header>
+
+      <section class="card reveal">
+        <h2>Access control</h2>
+        <p id="toolsGateStatus" class="status muted">Checking access...</p>
+      </section>
+
+      <section id="toolsLocked" class="card reveal">
+        <h2>Upgrade required</h2>
+        <p class="muted">Calculator tools are restricted to Gold and Enterprise plans.</p>
+        <a href="./billing.html" class="btn btn-link">Go To Billing</a>
+      </section>
+
+      <section id="toolsWorkspace" class="card reveal hidden tools-card">
+        <div class="tools-row tool-back-row">
+          <a href="./tools.html" class="btn btn-secondary btn-link">Back To Tools</a>
+        </div>
+
+        <label for="calcExpression">Expression</label>
+        <input id="calcExpression" type="text" placeholder="Example: (1200 * 0.075) + 89" autocomplete="off" />
+
+        <div class="tools-row calc-mode-row">
+          <label for="calcMode">Mode</label>
+          <select id="calcMode" class="calc-mode-select" aria-label="Calculator mode">
+            <option value="basic" selected>Basic</option>
+            <option value="scientific">Scientific</option>
+          </select>
+        </div>
+
+        <div class="calc-display" id="calcResult" aria-live="polite">Result: 0</div>
+
+        <div class="calc-pad" role="group" aria-label="Calculator keypad">
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="7">7</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="8">8</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="9">9</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="/">/</button>
+
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="4">4</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="5">5</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="6">6</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="*">*</button>
+
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="1">1</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="2">2</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="3">3</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="-">-</button>
+
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="0">0</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert=".">.</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="(">(</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert=")">)</button>
+        </div>
+
+        <div id="calcScientificPad" class="calc-pad calc-pad-scientific hidden" role="group" aria-label="Scientific keypad">
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="sin(">sin</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="cos(">cos</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="tan(">tan</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="sqrt(">sqrt</button>
+
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="log(">log</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="ln(">ln</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="abs(">abs</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="pow(">pow</button>
+
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="pi">pi</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="e">e</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert=",">,</button>
+          <button type="button" class="btn btn-secondary calc-key" data-calc-insert="^">^</button>
+        </div>
+
+        <div class="tools-row">
+          <button id="calcEvaluateBtn" type="button" class="btn">Evaluate</button>
+          <button id="calcSaveBtn" type="button" class="btn btn-secondary">Save</button>
+          <button id="calcClearBtn" type="button" class="btn btn-secondary">Clear</button>
+          <button id="calcClearHistoryBtn" type="button" class="btn btn-secondary">Clear history</button>
+          <span id="calcSavedAt" class="status"></span>
+        </div>
+
+        <h2>Recent calculations</h2>
+        <div id="calcHistory" class="calc-history muted">No calculations yet.</div>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+
+

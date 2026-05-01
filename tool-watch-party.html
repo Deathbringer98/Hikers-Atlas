@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype | Watch Party Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+    <main class="shell">
+      <nav class="card topnav reveal" aria-label="Prototype navigation">
+        <a href="./mission.html" class="nav-link">Mission</a>
+        <a href="./identity.html" class="nav-link">Identity</a>
+        <a href="./billing.html" class="nav-link">Billing</a>
+        <a href="./inbox.html" class="nav-link">Inbox</a>
+        <a href="./tools.html" class="nav-link nav-link-active">Tools</a>
+      </nav>
+
+      <header class="hero card reveal">
+        <p class="eyebrow">Enterprise Tool</p>
+        <h1>Watch Party</h1>
+        <p class="lead">Create shared rooms, send invite links, and watch YouTube together with host controls.</p>
+        <p id="sessionStatus" class="status">No active account session.</p>
+      </header>
+
+      <section class="card reveal">
+        <h2>Access control</h2>
+        <p id="toolsGateStatus" class="status muted">Checking access...</p>
+      </section>
+
+      <section id="toolsLocked" class="card reveal">
+        <h2>Upgrade required</h2>
+        <p class="muted">Watch Party is restricted to Gold and Enterprise plans.</p>
+        <a href="./billing.html" class="btn btn-link">Go To Billing</a>
+      </section>
+
+      <section id="toolsWorkspace" class="card reveal hidden tools-card">
+        <div class="tools-row tool-back-row">
+          <a href="./tools.html" class="btn btn-secondary btn-link">Back To Tools</a>
+        </div>
+
+        <div class="watch-grid">
+          <div class="stack">
+            <label for="watchPartyRoomInput">Room code</label>
+            <input id="watchPartyRoomInput" type="text" maxlength="20" placeholder="ROOM-ALPHA" />
+          </div>
+          <div class="tools-row watch-actions">
+            <button id="watchPartyCreateBtn" type="button" class="btn">Create Room</button>
+            <button id="watchPartyJoinBtn" type="button" class="btn btn-secondary">Join Room</button>
+          </div>
+        </div>
+
+        <label for="watchPartyInviteLink">Invite link</label>
+        <div class="watch-invite-row">
+          <input id="watchPartyInviteLink" type="text" readonly placeholder="Create or join a room to generate invite link" />
+          <button id="watchPartyCopyInviteBtn" type="button" class="btn btn-secondary">Copy Link</button>
+        </div>
+
+        <div id="watchPartyHostPanel" class="watch-host-panel hidden">
+          <h3>Host controls</h3>
+          <label for="watchPartyVideoUrl">YouTube URL or video ID</label>
+          <div class="watch-video-row">
+            <input id="watchPartyVideoUrl" type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
+            <button id="watchPartySetVideoBtn" type="button" class="btn">Set Video</button>
+            <button id="watchPartyClearVideoBtn" type="button" class="btn btn-secondary">Clear</button>
+          </div>
+          <div class="tools-row">
+            <button id="watchPartyToggleModeBtn" type="button" class="btn btn-secondary hidden">Use YouTube Mode</button>
+          </div>
+        </div>
+
+        <div class="watch-player-panel">
+          <h2 id="watchPartyHeading">No room selected</h2>
+          <p id="watchPartyNowPlaying" class="muted">Join or create a room to start watching.</p>
+          <div class="watch-embed-wrap">
+            <iframe
+              id="watchPartyFrame"
+              title="Watch Party player"
+              src="about:blank"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <a
+            id="watchPartyOpenYoutubeLink"
+            class="btn btn-secondary btn-link hidden"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open Video On YouTube
+          </a>
+        </div>
+
+        <p id="watchPartyStatus" class="status"></p>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

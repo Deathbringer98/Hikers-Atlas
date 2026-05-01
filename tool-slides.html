@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype | Slides Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="slides-tool-page">
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+    <main class="shell slides-tool-shell">
+      <nav class="card topnav reveal" aria-label="Prototype navigation">
+        <a href="./mission.html" class="nav-link">Mission</a>
+        <a href="./identity.html" class="nav-link">Identity</a>
+        <a href="./billing.html" class="nav-link">Billing</a>
+        <a href="./inbox.html" class="nav-link">Inbox</a>
+        <a href="./tools.html" class="nav-link nav-link-active">Tools</a>
+      </nav>
+
+      <section class="card reveal slides-v2-page-status">
+        <div>
+          <p class="eyebrow">Enterprise Suite</p>
+          <h1>Presentations (Slides)</h1>
+          <p class="lead">PowerPoint-style slide deck builder with quick present mode.</p>
+        </div>
+        <div class="slides-v2-page-status-right">
+          <p id="sessionStatus" class="status">No active account session.</p>
+          <p id="toolsGateStatus" class="status muted">Checking access...</p>
+        </div>
+      </section>
+
+      <section id="toolsLocked" class="card reveal">
+        <h2>Enterprise required</h2>
+        <p class="muted">This tool is restricted to Enterprise subscribers only.</p>
+        <a href="./billing.html" class="btn btn-link">Go To Billing</a>
+      </section>
+
+      <section id="toolsWorkspace" class="card reveal hidden tools-card slides-studio-workspace">
+        <header class="slides-studio-topbar">
+          <div class="slides-studio-topbar-copy">
+            <h2>Presentations (Slides)</h2>
+            <p class="slides-studio-subtitle">Clean, focused slide deck builder with live preview and presenter mode.</p>
+          </div>
+          <div class="slides-studio-topbar-actions">
+            <a href="./tools.html" class="slides-studio-backlink btn btn-secondary btn-link">Back to Tools</a>
+            <button id="slidesPresentHeaderBtn" type="button" class="btn slides-studio-present-btn">Present</button>
+          </div>
+        </header>
+
+        <div class="slides-studio-toolbar-row">
+          <select id="slidesTemplateSelect" aria-label="Deck template" title="Deck template">
+            <option value="">Template</option>
+            <option value="startup-pitch">Startup Pitch</option>
+            <option value="investor-update">Investor Update</option>
+            <option value="product-roadmap">Product Roadmap</option>
+            <option value="market-analysis">Market Analysis</option>
+          </select>
+          <select id="slidesThemeSelect" aria-label="Deck theme" title="Deck theme">
+            <option value="light">Corporate Blue</option>
+            <option value="dark">Obsidian</option>
+            <option value="ocean">Ocean</option>
+            <option value="sunrise">Sunrise</option>
+            <option value="aurora">Aurora</option>
+            <option value="ember">Ember</option>
+            <option value="forest">Forest</option>
+            <option value="midnight-neon">Midnight Neon</option>
+            <option value="cotton-candy">Cotton Candy</option>
+            <option value="sandstone">Sandstone</option>
+            <option value="citrus">Citrus</option>
+            <option value="lagoon">Lagoon</option>
+          </select>
+          <button id="slidesApplyTemplateBtn" type="button" class="btn btn-secondary">Apply Template</button>
+          <div class="slides-studio-search-wrap">
+            <span class="slides-studio-search-icon" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.6" />
+                <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </span>
+            <input id="slidesSearchInput" type="search" placeholder="Search slides, titles, bullets..." aria-label="Search slides" />
+          </div>
+          <button id="slideAddBtn" type="button" class="btn">New Slide</button>
+          <button id="slidesDuplicateBtn" type="button" class="btn btn-secondary">Duplicate</button>
+          <button id="slidesDeleteBtn" type="button" class="btn btn-secondary">Delete</button>
+        </div>
+
+        <div class="slides-studio-shell">
+          <aside class="slides-studio-sidebar">
+            <div class="slides-studio-sidebar-head">
+              <div>
+                <h3>Slides <span id="slidesSidebarCount" class="slides-studio-count-badge">4</span></h3>
+                <p class="muted">Drag thumbnails to reorder the deck.</p>
+              </div>
+              <select id="slidesSortSelect" aria-label="Sort slides">
+                <option value="manual">Manual</option>
+                <option value="title">Title A-Z</option>
+                <option value="title-desc">Title Z-A</option>
+              </select>
+            </div>
+            <div id="slidesThumbs" class="slides-thumbs slides-studio-thumbs"></div>
+            <button id="slidesOutlineBtn" type="button" class="btn btn-secondary slides-studio-outline-btn">Copy Outline</button>
+          </aside>
+
+          <section class="slides-studio-editor-column">
+            <div class="slides-studio-editor-card">
+              <div class="slides-studio-editor-head">
+                <div class="slides-studio-editor-titlewrap">
+                  <label for="slideTitle">Slide Title</label>
+                  <input id="slideTitle" type="text" placeholder="Welcome" />
+                </div>
+                <div class="slides-studio-editor-badges">
+                  <span class="slides-editor-pill">Live Preview</span>
+                  <span class="slides-editor-pill slides-editor-pill-muted">Live autosave enabled</span>
+                </div>
+              </div>
+
+              <div class="slides-studio-formatbar" role="toolbar" aria-label="Rich text formatting">
+                <span class="slides-studio-format-label">Rich</span>
+                <select id="slideFontFamily" aria-label="Slide font family" title="Slide font family">
+                  <option value="Inter">Inter</option>
+                  <option value="Space Grotesk">Space Grotesk</option>
+                  <option value="Montserrat">Montserrat</option>
+                  <option value="Merriweather">Merriweather</option>
+                  <option value="Playfair Display">Playfair Display</option>
+                  <option value="IBM Plex Mono">IBM Plex Mono</option>
+                  <option value="Arial">Arial</option>
+                </select>
+                <select id="slideFontSize" aria-label="Slide font size" title="Slide font size">
+                  <option value="16">16</option>
+                  <option value="18" selected>18</option>
+                  <option value="20">20</option>
+                  <option value="22">22</option>
+                  <option value="24">24</option>
+                </select>
+                <button type="button" class="slides-format-btn" data-slide-format="bold" aria-label="Bold"><strong>B</strong></button>
+                <button type="button" class="slides-format-btn" data-slide-format="italic" aria-label="Italic"><em>I</em></button>
+                <button type="button" class="slides-format-btn" data-slide-format="underline" aria-label="Underline"><u>U</u></button>
+                <span class="slides-format-divider" aria-hidden="true"></span>
+                <button type="button" class="slides-format-btn" data-slide-format="justifyLeft" aria-label="Align left">L</button>
+                <button type="button" class="slides-format-btn" data-slide-format="justifyCenter" aria-label="Align center">C</button>
+                <button type="button" class="slides-format-btn" data-slide-format="justifyRight" aria-label="Align right">R</button>
+                <button type="button" class="slides-format-btn" data-slide-format="insertUnorderedList" aria-label="Bulleted list">•</button>
+                <button type="button" class="slides-format-btn" data-slide-format="removeFormat" aria-label="Clear formatting">Clear</button>
+              </div>
+
+              <div id="slideBodyEditor" class="slides-studio-body-editor" contenteditable="true" role="textbox" aria-label="Slide body" aria-multiline="true" data-placeholder="Body."></div>
+              <textarea id="slideBody" rows="6" class="hidden" placeholder="Add slide bullets, one per line..."></textarea>
+
+              <div class="slides-studio-media-row">
+                <div class="slides-studio-media-controls">
+                  <label for="slideImageUrl">Image URL</label>
+                  <div class="slides-studio-media-inputrow">
+                    <input id="slideImageUrl" type="url" placeholder="Image URL, direct asset or resolved media" />
+                    <button id="slideImageUploadBtn" type="button" class="btn btn-secondary">Upload</button>
+                    <input id="slideImageFile" type="file" accept="image/*" class="hidden" aria-label="Upload image file" />
+                    <button id="slideImageResolveBtn" type="button" class="btn btn-secondary">Resolve</button>
+                    <button id="slideImageApplyBtn" type="button" class="btn btn-secondary">Apply</button>
+                    <button id="slideImageClearBtn" type="button" class="btn btn-secondary">Clear</button>
+                  </div>
+                  <label class="slides-studio-toggle inline-check" for="slideImageAsBackground">
+                    <input id="slideImageAsBackground" type="checkbox" />
+                    Use as background
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="slides-studio-preview-card">
+              <div class="slides-studio-preview-head">
+                <div>
+                  <h3>Live Preview</h3>
+                  <p class="muted">Updates as you edit title, body, formatting, and media.</p>
+                </div>
+                <span class="slides-preview-ratio">16:9</span>
+              </div>
+              <div id="slideCanvas" class="slide-canvas slide-theme-light">
+                <h2 id="slideCanvasTitle">Slide preview</h2>
+                <div id="slideCanvasBody" class="slide-canvas-body"></div>
+                <div id="slideCanvasImageWrap" class="slide-canvas-image-wrap hidden">
+                  <img id="slideCanvasImage" class="slide-canvas-image" alt="Slide visual" />
+                  <button id="slideCanvasResizeHandle" type="button" class="slide-resize-handle" aria-label="Resize image"></button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="slides-studio-rightpanel">
+            <section class="slides-studio-panel slides-studio-options-panel">
+              <div class="slides-studio-panel-head">
+                <h3>Slide Options</h3>
+              </div>
+              <div class="slides-studio-option-grid">
+                <div>
+                  <span class="slides-option-label">Layout</span>
+                  <div class="slides-option-chips">
+                    <button type="button" class="slides-option-chip">Hero</button>
+                    <button type="button" class="slides-option-chip">Content</button>
+                    <button type="button" class="slides-option-chip">Summary</button>
+                  </div>
+                </div>
+                <div>
+                  <span class="slides-option-label">Motion</span>
+                  <div class="slides-option-chips">
+                    <button type="button" class="slides-option-chip">Fade</button>
+                    <button type="button" class="slides-option-chip">None</button>
+                  </div>
+                </div>
+              </div>
+              <label for="slidesPresenterNotes">Presenter Notes</label>
+              <textarea id="slidesPresenterNotes" rows="6" placeholder="Notes for the presenter"></textarea>
+            </section>
+
+            <section class="slides-studio-panel">
+              <div class="slides-studio-panel-head">
+                <h3>Deck Settings &amp; Insights</h3>
+              </div>
+              <div class="slides-insights-grid">
+                <div class="slides-insight-item">
+                  <span class="muted">Slides</span>
+                  <strong id="slidesInsightCount">0</strong>
+                </div>
+                <div class="slides-insight-item">
+                  <span class="muted">Words</span>
+                  <strong id="slidesInsightWords">0</strong>
+                </div>
+                <div class="slides-insight-item">
+                  <span class="muted">Est. Talk</span>
+                  <strong id="slidesInsightTalk">0m</strong>
+                </div>
+                <div class="slides-insight-item">
+                  <span class="muted">Readability</span>
+                  <strong id="slidesInsightReadability">-</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="slides-studio-panel">
+              <div class="slides-studio-panel-head">
+                <h3>Version History</h3>
+              </div>
+              <div class="slides-version-panel-copy">
+                <p class="muted">Each save creates a recoverable checkpoint for the current deck.</p>
+              </div>
+              <select id="slidesVersionSelect" aria-label="Saved versions">
+                <option value="">No saved versions yet</option>
+              </select>
+              <div class="tools-row">
+                <button id="slidesRestoreVersionBtn" type="button" class="btn btn-secondary">Restore</button>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <footer class="slides-studio-bottombar">
+          <div class="slides-studio-bottombar-left">
+            <button id="slidesSaveBtn" type="button" class="btn btn-secondary">Save Deck</button>
+            <button id="slidesExportBtn" type="button" class="btn btn-secondary">Export Backup</button>
+            <button id="slidesImportBtn" type="button" class="btn btn-secondary">Import Backup</button>
+            <input id="slidesImportFile" type="file" accept="application/json,.json" class="hidden" aria-label="Import slides backup file" />
+          </div>
+          <div class="slides-studio-bottombar-center">
+            <button id="slidesPresentBtn" type="button" class="btn slides-studio-present-btn">Present</button>
+          </div>
+          <div class="slides-studio-bottombar-right">
+            <button id="slidesShortcutsBtn" type="button" class="btn btn-secondary">Shortcuts</button>
+          </div>
+          <span id="slidesStatus" class="status slides-studio-status"></span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+    <script src="./enterprise-suite.js" defer></script>
+  </body>
+</html>
